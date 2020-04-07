@@ -1,14 +1,14 @@
 from airflow.models import DAG
 from airflow.utils.dates import days_ago
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from airflow.contrib.operators.kubernetes_pod_operator import KubernetesPodOperator
 
 default_args = {
-    'owner': 'airflow-ds',
+    'owner': 'airflow',
     'depends_on_past': False,
-    'start_date': datetime.now(),
+    'start_date': date.today(),
     'retries': 2,
-    'retry_delay': timedelta(minutes=10)
+    'retry_delay': timedelta(minutes=5)
 }
 
 dag = DAG(
@@ -29,7 +29,7 @@ k8s_example_task_1 = KubernetesPodOperator(
     dag=dag,
     in_cluster=True,
     do_xcom_push=False,
-    is_delete_operator_pod=True
+    is_delete_operator_pod=False
 )
 
 k8s_example_task_2 = KubernetesPodOperator(
@@ -42,7 +42,7 @@ k8s_example_task_2 = KubernetesPodOperator(
     dag=dag,
     in_cluster=True,
     do_xcom_push=False,
-    is_delete_operator_pod=True
+    is_delete_operator_pod=False
 )
 
 k8s_example_task_2.set_upstream(k8s_example_task_1)
