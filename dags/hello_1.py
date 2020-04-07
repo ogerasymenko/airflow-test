@@ -6,7 +6,7 @@ from airflow.contrib.operators.kubernetes_pod_operator import KubernetesPodOpera
 default_args = {
     'owner': 'airflow-ds',
     'depends_on_past': False,
-    'start_date': days_ago(1),
+    'start_date': datetime.now(),
     'retries': 2,
     'retry_delay': timedelta(minutes=10)
 }
@@ -15,7 +15,7 @@ dag = DAG(
     'k8s-example',
     default_args=default_args,
     description='A simple tutorial DAG',
-    schedule_interval=timedelta(minutes = 15)
+    schedule_interval="*/15 * * * *"
 )
 
 k8s_example_task_1 = KubernetesPodOperator(
