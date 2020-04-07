@@ -1,12 +1,12 @@
 from airflow.models import DAG
 from airflow.utils.dates import days_ago
-from datetime import datetime, timedelta, date
+from datetime import datetime, timedelta
 from airflow.contrib.operators.kubernetes_pod_operator import KubernetesPodOperator
 
 default_args = {
     'owner': 'airflow',
     'depends_on_past': False,
-    'start_date': date.today(),
+    'start_date': timedelta(minutes=30),
     'retries': 2,
     'retry_delay': timedelta(minutes=5)
 }
