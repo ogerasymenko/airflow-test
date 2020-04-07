@@ -15,14 +15,14 @@ dag = DAG(
     'k8s-example',
     default_args=default_args,
     description='A simple tutorial DAG',
-    schedule_interval=None
+    schedule_interval=timedelta(minutes = 15)
 )
 
 k8s_example_task_1 = KubernetesPodOperator(
     namespace="spark-ds",
     image="ubuntu:16.04",
     cmds=["bash", "-cx"],
-    arguments=["date", ";" , "sleep", "30", ";", "date"],
+    arguments=["date"],
     name="k8s-example-task-1",
     task_id="k8s-example-task-1",
     get_logs=True,
