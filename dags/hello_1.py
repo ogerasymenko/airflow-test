@@ -32,7 +32,7 @@ k8s_example_task_1 = KubernetesPodOperator(
     dag=dag,
     in_cluster=True,
     do_xcom_push=False,
-    is_delete_operator_pod=True
+    is_delete_operator_pod=False
 )
 
 k8s_example_task_2 = KubernetesPodOperator(
@@ -46,7 +46,7 @@ k8s_example_task_2 = KubernetesPodOperator(
     dag=dag,
     in_cluster=True,
     do_xcom_push=False,
-    is_delete_operator_pod=True
+    is_delete_operator_pod=False
 )
 
 k8s_example_task_2.set_upstream(k8s_example_task_1)
