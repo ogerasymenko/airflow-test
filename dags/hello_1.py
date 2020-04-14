@@ -22,8 +22,9 @@ dag = DAG(
 
 k8s_example_task_1 = KubernetesPodOperator(
     namespace="spark-ds",
-    image="adoptopenjdk/openjdk11:alpine-jre",
-    cmds=["java", "--version"],
+    image="ubuntu:16.04",
+    cmds=["bash", "-cx"],
+    arguments=['date ; sleep 30 ; date'],
     name="k8s-example-task-1",
     task_id="k8s-example-task-1",
     startup_timeout_seconds=10,
@@ -31,14 +32,13 @@ k8s_example_task_1 = KubernetesPodOperator(
     dag=dag,
     in_cluster=True,
     do_xcom_push=False,
-    is_delete_operator_pod=False
+    is_delete_operator_pod=True
 )
 
 k8s_example_task_2 = KubernetesPodOperator(
     namespace="spark-ds",
-    image="ubuntu:16.04",
-    cmds=["bash", "-cx"],
-    arguments=['date ; sleep 30 ; date'],
+    image="adoptopenjdk/openjdk11:alpine-jre",
+    cmds=["java", "--version"],
     name="k8s-example-task-2",
     task_id="k8s-example-task-2",
     startup_timeout_seconds=10,
@@ -46,7 +46,7 @@ k8s_example_task_2 = KubernetesPodOperator(
     dag=dag,
     in_cluster=True,
     do_xcom_push=False,
-    is_delete_operator_pod=False
+    is_delete_operator_pod=True
 )
 
 k8s_example_task_2.set_upstream(k8s_example_task_1)
