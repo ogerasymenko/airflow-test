@@ -17,7 +17,7 @@ dag = DAG(
     dag_id='k8s-example',
     default_args=default_args,
     description='A simple tutorial DAG',
-    schedule_interval="@hourly"
+    schedule_interval="@daily"
 )
 
 k8s_example_task_1 = KubernetesPodOperator(
