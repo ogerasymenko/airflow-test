@@ -2,6 +2,7 @@ from airflow.models import DAG
 from airflow.utils.dates import days_ago
 from datetime import datetime, timedelta, date
 from airflow.contrib.operators.kubernetes_pod_operator import KubernetesPodOperator
+from repo.dags.kubernetes_commons import ds_airflow_affinity, ds_airflow_tolerations
 
 today = str(date.today()).replace('-', '.')
 
@@ -30,6 +31,8 @@ k8s_example_task_1 = KubernetesPodOperator(
     startup_timeout_seconds=10,
     get_logs=True,
     dag=dag,
+    affinity=ds_airflow_affinity,
+    tolerations=ds_airflow_tolerations,
     in_cluster=True,
     do_xcom_push=False,
     is_delete_operator_pod=True
@@ -44,6 +47,8 @@ k8s_example_task_2 = KubernetesPodOperator(
     startup_timeout_seconds=10,
     get_logs=True,
     dag=dag,
+    affinity=ds_airflow_affinity,
+    tolerations=ds_airflow_tolerations,
     in_cluster=True,
     do_xcom_push=False,
     is_delete_operator_pod=False
