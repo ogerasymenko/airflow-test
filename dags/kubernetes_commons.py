@@ -25,3 +25,7 @@ ds_airflow_tolerations = [
         "value": "spark-ds"
     }
 ]
+
+ds_airflow_resources = {
+    'request_ephemeral_storage': '1G'
+}
